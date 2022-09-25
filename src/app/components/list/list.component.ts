@@ -20,8 +20,7 @@ export interface PROFILE extends USER {
 export class ListComponent implements OnInit {
 
   userList: PROFILE[] = [];
-  constructor(
-    private dialog: MatDialog, public userListService: ListService
+  constructor(public userListService: ListService
   ) {}
 
 ngOnInit() {
