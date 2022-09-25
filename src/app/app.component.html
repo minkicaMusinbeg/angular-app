@@ -9,10 +9,11 @@
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
     <mat-nav-list>
       <mat-list-item *ngFor="let item of routes">
-        <button mat-button class="menu-button" style="cursor: pointer" routerLink={{item.route}} (click)="clickColorChange(item.id)"
-          [ngStyle]="{color: !item.clicked ? item.color :'var(--blue-light)'}" (mouseover)="item.color='var(--blue-light)'" (mouseout)="item.color='black'">
+        <button mat-button class="menu-button" routerLink={{item.route}} (click)="clickColorChange(item.id)"
+        [ngStyle]="{color: item.color }"
+        >
           <mat-icon>{{item.icon}}</mat-icon>
-          <span>    {{item.name}}</span>
+          <span>{{item.name}}</span>
         </button>
         <mat-divider></mat-divider>
       </mat-list-item>

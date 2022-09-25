@@ -10,8 +10,7 @@ export interface Route{
   route:string,
   color:string,
   name:string,
-  icon:string,
-  clicked: boolean
+  icon:string
 }
 
 @UntilDestroy()
@@ -25,8 +24,8 @@ export class AppComponent implements OnInit{
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   coloredRoute:any;
-  routes: Route[] = [{id:1,route:'/home',color:'black',name:'Dashboard',icon:'home',clicked:false},
-  {id:2,route:'/list',color:'black',name:'List of users',icon:'view_list', clicked:false}]
+  routes: Route[] = [{id:1,route:'/home',color:'black',name:'Dashboard',icon:'home'},
+  {id:2,route:'/list',color:'black',name:'List of users',icon:'view_list'}]
 
   constructor(private observer: BreakpointObserver, private router: Router) {
   }
@@ -56,7 +55,7 @@ export class AppComponent implements OnInit{
       .subscribe((e:any) => {
         this.routes.forEach(element => {
           if(element.route === e.url){
-            element.clicked = true;
+            element.color = 'white';
           }
         });
         if (this.sidenav.mode === 'over') {
@@ -66,9 +65,9 @@ export class AppComponent implements OnInit{
   }
   clickColorChange(id:number){
     this.coloredRoute = this.routes.find(x=>x.id === id);
-    this.coloredRoute.clicked = true;
+    this.coloredRoute.color = 'white'
    this.routes.filter(x=>x.id!=id).forEach(element => {
-      element.clicked = false;
+      element.color = 'black'
     });
 
   }
