@@ -14,7 +14,7 @@ export class ListService {
     },
     {
       email: "almina@email.com",
-      fullName: "Musinbegovic",
+      fullName: "aMusinbegovic",
       id: 2
     },
     {
@@ -29,7 +29,7 @@ export class ListService {
     },
     {
       email: "almina@email.com",
-      fullName: "Musinbegovic",
+      fullName: "sMusinbegovic",
       id: 5
     },
     {
@@ -39,7 +39,7 @@ export class ListService {
     },
     {
       email: "almina@email.com",
-      fullName: "Musinbegovic",
+      fullName: "bMusinbegovic",
       id: 7
     },
     ];
