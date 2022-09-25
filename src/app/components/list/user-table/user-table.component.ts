@@ -22,8 +22,7 @@ export class UserTableComponent implements OnInit {
   } =  {sort : '', search: ''}
   sorting : string[] = ['A-Z','Z-A']
   public dataSource!: MatTableDataSource<any>;
-    @ViewChild('paginator')
-  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['name', 'username','edit', 'delete'];
   constructor(
     private dialog: MatDialog,
@@ -95,6 +94,25 @@ export class UserTableComponent implements OnInit {
       disableClose: true,
     });
     return await userDialog.afterClosed().toPromise();
+  }
+  custom(event:any) {
+    console.log(event);
+    var newList: PROFILE [] = [];
+    if (event.previousPageIndex > event.pageIndex){
+      this.userList.forEach((element,index) => {
+        if(index < 5){
+          newList.push(element);
+        }
+      });
+    }
+    else{
+      this.userList.forEach((element,index) => {
+        if(index >=5){
+          newList.push(element);
+        }
+      });
+    }
+    this.dataSource = new MatTableDataSource(newList);
   }
 
 }

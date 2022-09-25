@@ -67,6 +67,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [length]="userList.length" [pageSize]="5" (page)="1" [pageSizeOptions]="[5]"></mat-paginator>
+  <mat-paginator [length]="userList.length" [pageSize]="5" (page)="custom($event)" [pageSizeOptions]="[5]"></mat-paginator>
 </mat-card>
 
