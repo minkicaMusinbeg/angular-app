@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ListService } from 'src/app/services/list/list.service';
 import { PROFILE } from '../../list/list.component';
 
 @Component({
@@ -10,22 +11,16 @@ import { PROFILE } from '../../list/list.component';
 export class UserModalComponent implements OnInit {
 
   constructor(
-    // private userListService: UserListService,
+    public userListService: ListService,
     private dialogRef: MatDialogRef<UserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PROFILE
   ) {}
-  async save(formData: any) {
-    // const { success, user } = this.data
-    //   ? await this.userListService.updateUser({
-    //       ...this.data,
-    //       fullName: formData?.fullName,
-    //       role: formData?.role,
-    //     })
-    //   : await this.userListService.addNewUser(formData);
-    // if (success) {
-      this.dialogRef.close();
-    // }
-  }
+  async save(formData: PROFILE) {
+      this.dialogRef.close({ success: true, userData: formData });
+}
+closeModal(){
+  this.dialogRef.close();
+}
   ngOnInit(): void {}
 
 }

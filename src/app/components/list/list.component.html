@@ -1,19 +1,7 @@
-<div class="add-button-wrapper">
-  <button
-    mat-fab
-    matTooltip="Create New User"
-    color="primary"
-    (click)="createNewUser()"
-  >
-    <mat-icon>add</mat-icon>
-  </button>
-</div>
 <ng-container *ngIf="userList && userList.length">
   <ng-container *ngIf="userList.length > 0; else noItemTemplate">
     <app-user-table
       [userList]="userList"
-      (update)="updateUser($event)"
-      (delete)="deleteUser($event)"
     ></app-user-table>
   </ng-container>
   <ng-template #noItemTemplate>

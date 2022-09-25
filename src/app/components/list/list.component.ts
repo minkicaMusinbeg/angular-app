@@ -27,39 +27,5 @@ export class ListComponent implements OnInit {
 ngOnInit() {
     this.userList = this.userListService.getUsers();
   }
-  async createNewUser() {
-
-      const { success, userData } = await this.openUserModal();
-      if (success) {
-        this.userList.push(userData);
-      }
-  }
-
-  async updateUser(user: PROFILE) {
-    try {
-      const { success, userData } = await this.openUserModal(user);
-      if (success) {
-        const userIndex = this.userList.findIndex(
-          (usr) => usr?.id === user?.id
-        );
-        if (userIndex >= 0) {
-          this.userList[userIndex] = userData;
-        }
-      }
-    } catch (error: any) {
-    }
-  }
-  async deleteUser(userData: PROFILE) {
-
-  }
-  private async openUserModal(user?: PROFILE) {
-    const userDialog = this.dialog.open(UserModalComponent , {
-      width: '450px',
-      maxWidth: '100%',
-      data: user,
-      disableClose: true,
-    });
-    return await userDialog.afterClosed().toPromise();
-  }
 
 }

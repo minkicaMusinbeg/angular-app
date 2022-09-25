@@ -41,7 +41,6 @@ import { MatListModule } from '@angular/material/list';
     MatSelectModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatCheckboxModule,
     MatSidenavModule,
     MatDividerModule,
     MatListModule,

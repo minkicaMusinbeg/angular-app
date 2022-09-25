@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserModalComponent } from '../../modals/user-modal/user-modal.component';
 import { PROFILE } from '../list.component';
 
 @Component({
@@ -14,7 +16,6 @@ export class UserTableComponent implements OnInit {
   // private readonly userRoles = environment?.userRoles;
   @Input() userList!:  PROFILE[];
   @Output() update = new EventEmitter<PROFILE>();
-  @Output() delete = new EventEmitter<PROFILE>();
   parametri: {
     sort: string,
     search: string
@@ -25,7 +26,7 @@ export class UserTableComponent implements OnInit {
   paginator!: MatPaginator;
   displayedColumns: string[] = ['name', 'username','edit', 'delete'];
   constructor(
-    // private globalData: GlobalDataService,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -41,7 +42,6 @@ export class UserTableComponent implements OnInit {
     return '';
   }
   searchAndSort(data:any){
-    console.log("parametri", data);
     if (this.parametri.search != ''){
       this.dataSource.filter = data.search.trim().toLocaleLowerCase();
     }
@@ -55,6 +55,46 @@ export class UserTableComponent implements OnInit {
         b.fullName.localeCompare(a.fullName, 'tr'));
       }
     }
+  }
+  async createNewUser() {
+
+    const { success, userData } = await this.openUserModal();
+    if (success) {
+      userData.id = this.userList.length+1;
+      this.userList.push(userData);
+      this.dataSource = new MatTableDataSource(this.userList);
+    }
+}
+  deleteUser(userData: PROFILE) {
+    this.userList.forEach((element,index)=>{
+      if(element.id===userData.id){
+        this.userList.splice(index,1);
+      }
+   });
+          this.dataSource = new MatTableDataSource(this.userList);
+  }
+  async updateUser(user: PROFILE) {
+    try {
+      const { success, userData } = await this.openUserModal(user);
+      if (success) {
+        const userIndex = this.userList.map(x=>x.id).indexOf(userData.id);
+        if (userIndex >= 0) {
+          this.userList[userIndex] = userData;
+        }
+        this.dataSource = new MatTableDataSource(this.userList);
+      }
+    } catch (error: any) {
+      console.log("error",error);
+    }
+  }
+  private async openUserModal(user?: PROFILE) {
+    const userDialog = this.dialog.open(UserModalComponent , {
+      width: '450px',
+      maxWidth: '100%',
+      data: user,
+      disableClose: true,
+    });
+    return await userDialog.afterClosed().toPromise();
   }
 
 }

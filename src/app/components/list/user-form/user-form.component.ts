@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FormValidationService } from 'src/app/services/form/form-validation.service';
+import { ListService } from 'src/app/services/list/list.service';
 import { PROFILE } from '../list.component';
 
 @Component({
@@ -31,7 +32,7 @@ export class UserFormComponent implements OnInit {
     canAdd: false
   }
   constructor(
-    private formValidationService: FormValidationService,
+    private formValidationService: FormValidationService
     // private globalData: GlobalDataService
   ) {
     // INIT USER FORM
@@ -42,7 +43,7 @@ export class UserFormComponent implements OnInit {
   }
   // GET USER FORM DATA
   get getFormData() {
-    return { ...this.userForm.value, role: this.userForm.value?.role || 1 };
+    return { ...this.userForm.value, id:this.userData?.id };
   }
   // USER FORM PROPERTIES
   private get inituserForm() {
