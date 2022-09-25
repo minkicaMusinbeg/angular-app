@@ -13,20 +13,6 @@
       {{ getErrorMessage("fullName") }}
     </mat-error>
   </mat-form-field>
-
-  <ng-container *ngIf="currentUser?.role === 3">
-    <mat-form-field appearance="outline" class="d-block mb-2">
-      <mat-label>Role</mat-label>
-      <mat-select formControlName="role">
-        <mat-option *ngFor="let userRole of userRoles" [value]="userRole.val">
-          {{ userRole.viewVal }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="fieldHasError('role')">
-        {{ getErrorMessage("role") }}
-      </mat-error>
-    </mat-form-field>
-  </ng-container>
   <ng-container *ngIf="!userData">
     <mat-form-field appearance="outline" class="d-block mb-2">
       <mat-label>Password</mat-label>

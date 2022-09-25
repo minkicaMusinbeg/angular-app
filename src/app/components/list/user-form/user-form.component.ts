@@ -79,7 +79,6 @@ export class UserFormComponent implements OnInit {
             Validators.maxLength(30),
           ]
         ),
-        role: new FormControl(this.userData?.role || '', []),
         password: new FormControl('', this.userData ? [] : passwordValidator),
         passwordConfirm: new FormControl(
           '',
