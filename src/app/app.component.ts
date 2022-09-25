@@ -1,8 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay, filter } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, Routes } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 export interface Route{
@@ -21,14 +21,19 @@ export interface Route{
   styleUrls: ['./app.component.css'],
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   coloredRoute:any;
-  routes: Route[] = [{id:1,route:'/home',color:'black',name:'Dashboard',icon:'home',clicked:true},
+  routes: Route[] = [{id:1,route:'/home',color:'black',name:'Dashboard',icon:'home',clicked:false},
   {id:2,route:'/list',color:'black',name:'List of users',icon:'view_list', clicked:false}]
-  constructor(private observer: BreakpointObserver, private router: Router) {}
 
+  constructor(private observer: BreakpointObserver, private router: Router) {
+  }
+
+
+  ngOnInit(){
+  }
   ngAfterViewInit() {
     this.observer
       .observe(['(max-width: 800px)'])
@@ -48,7 +53,12 @@ export class AppComponent {
         untilDestroyed(this),
         filter((e) => e instanceof NavigationEnd)
       )
-      .subscribe(() => {
+      .subscribe((e:any) => {
+        this.routes.forEach(element => {
+          if(element.route === e.url){
+            element.clicked = true;
+          }
+        });
         if (this.sidenav.mode === 'over') {
           this.sidenav.close();
         }

@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: ListComponent
+    loadChildren: () =>
+      import('./components/list/list.module').then((m) => m.ListModule),
   }
 ];
 
