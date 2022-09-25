@@ -23,7 +23,7 @@ export class UserModalComponent implements OnInit {
     //     })
     //   : await this.userListService.addNewUser(formData);
     // if (success) {
-    //   this.dialogRef.close({ success: true, userData: user });
+      this.dialogRef.close();
     // }
   }
   ngOnInit(): void {}
